@@ -1,0 +1,24 @@
+﻿@using SimpleAds30.Data
+@model HomeViewModel
+
+<div class="row">
+    <div class="col-md-6 offset-md-3">
+        @foreach (AdViewModel ad in Model.Ads)
+        {
+        <div class="jumbotron">
+            <h5>Listed by @ad.Ad.UserName</h5>
+            <h2>Listed on @ad.Ad.DateAdded</h2>
+            <h2>Phone Number: @ad.Ad.PhoneNumber</h2>
+            <h4>Details:</h4>
+            <p>@ad.Ad.Details</p>
+            @if (User.Identity.IsAuthenticated && ad.CanDelete)
+            {
+                <form method="post" action="/home/deletead">
+                    <input type="hidden" name="id" value="@ad.Ad.Id" />
+                    <button class="btn btn-danger">Delete</button>
+                </form>
+            }
+        </div>
+        }
+    </div>
+</div>
